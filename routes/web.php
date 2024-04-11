@@ -42,3 +42,17 @@ Route::get('/{toDo}', function (ToDo $toDo) {
         'toDo' => $toDo
     ]);
 })->name('info');
+
+Route::get('/{toDo}/edit', function(ToDo $toDo) {
+    return view('update', [
+        'toDo' => $toDo
+    ]);
+})->name('update');
+
+Route::put('/{toDo}/edit', function(ToDo $toDo, ToDoRequest $req) {
+    $toDo->update($req->validated());
+
+    return redirect()->route('info', [
+        'toDo' => $toDo
+    ])->with('success', 'To Do updated!');
+})->name('update.put');
