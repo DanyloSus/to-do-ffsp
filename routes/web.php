@@ -36,5 +36,9 @@ Route::post('/create', function (ToDoRequest $req) {
 })->name('create.post');
 
 Route::get('/{toDo}', function (ToDo $toDo) {
-    return $toDo->title;
+    info('Some message here.');
+    
+    return view('info', [
+        'toDo' => $toDo
+    ]);
 })->name('info');
