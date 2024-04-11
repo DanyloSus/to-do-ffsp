@@ -41,6 +41,12 @@ Route::get('/{toDo}', function (ToDo $toDo) {
     ]);
 })->name('info');
 
+Route::put('/{toDo}', function (ToDo $toDo) {
+    $toDo->toogle();
+    
+    return redirect()->back()->with('success', 'Task toogled!');
+})->name('info.toogle');
+
 Route::delete('/{toDo}', function (ToDo $toDo) {
     $toDo->delete();
 
