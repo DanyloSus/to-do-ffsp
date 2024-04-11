@@ -36,12 +36,16 @@ Route::post('/create', function (ToDoRequest $req) {
 })->name('create.post');
 
 Route::get('/{toDo}', function (ToDo $toDo) {
-    info('Some message here.');
-    
     return view('info', [
         'toDo' => $toDo
     ]);
 })->name('info');
+
+Route::delete('/{toDo}', function (ToDo $toDo) {
+    $toDo->delete();
+
+    return redirect()->route('main')->with('success', 'To Do deleted');
+})->name('info.destroy');
 
 Route::get('/{toDo}/edit', function(ToDo $toDo) {
     return view('update', [
