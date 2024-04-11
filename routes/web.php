@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ToDo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $latestToDos = ToDo::latest()->paginate();
+
+    return view('list', [ 
+        'toDos' => $latestToDos 
+    ]);
+})->name('main');
+
+Route::get('/{toDo}', function (ToDo $toDo) {
+    return $toDo->title;
+})->name('main');
