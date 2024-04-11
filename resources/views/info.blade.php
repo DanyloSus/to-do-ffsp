@@ -3,9 +3,14 @@
 @section('heading', $toDo->title)
 
 @section('content')
-    <div>
+    <div class='flex flex-col gap-3 items-center'>
+        <p>{{ $toDo->completed ? '' : 'Not' }} Completed</p>
         <p>{{ $toDo->description }}</p>
-        <p>{{ $toDo->completed }}</p>
+        <p>Created: {{ $toDo->created_at->diffForHumans() }}</p>
+        <p>Updated: {{ $toDo->updated_at->diffForHumans() }}</p>
+        <a href='{{ route('update', [
+            'toDo' => $toDo
+        ]) }}' class='btn w-min'>Edit</a>
         <div>
             <form method="POST" action="{{ route('info.toogle', [
                 'toDo' => $toDo,

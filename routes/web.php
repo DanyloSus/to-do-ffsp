@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $latestToDos = ToDo::latest()->paginate();
+    $latestToDos = ToDo::latest()->paginate(5);
 
     return view('list', [ 
         'toDos' => $latestToDos 

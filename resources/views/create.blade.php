@@ -4,7 +4,9 @@
 
 @section('content')
     <div>
-        <form action='{{ route('create.post') }}' method='POST'>
+        <form action='{{ route('create.post') }}' method='POST'
+            class='flex flex-col gap-3'
+        >
             @csrf
             <div>
                 <label for='title'>Title</label>
