@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Requests\ToDoRequest;
 use App\Models\ToDo;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,18 @@ Route::get('/', function () {
     ]);
 })->name('main');
 
+Route::get('/create', function () {
+    return view('create');
+})->name('create');
+
+Route::post('/create', function (ToDoRequest $req) {
+    $toDo = ToDo::create($req->validated());
+
+    return redirect()->route('info', [
+        'toDo' => $toDo,
+    ])->with('success', 'To Do created!');
+})->name('create.post');
+
 Route::get('/{toDo}', function (ToDo $toDo) {
     return $toDo->title;
-})->name('main');
+})->name('info');
