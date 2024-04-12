@@ -1,8 +1,8 @@
 export interface ToDoType {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   completed: boolean;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

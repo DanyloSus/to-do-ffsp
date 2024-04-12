@@ -20,11 +20,11 @@ const Home = () => {
       <div>
         <Link href="/create">Create</Link>
       </div>
-      {toDos ? (
+      {toDos?.length ? (
         toDos.map((toDo) => (
           <div className="flex flex-col gap-3">
             <Link
-              href={toDo.id}
+              href={toDo._id}
               className="hover:font-medium hover:text-xl transition-all"
             >
               {toDo.title}
