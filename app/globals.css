@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+input, textarea, button, .btn {
+    border: 1px solid black !important;
+    border-radius: 8px;
+    padding: 4px 8px !important;
+}
