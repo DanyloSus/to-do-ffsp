@@ -53,7 +53,7 @@ const ToDo = ({ params }: { params: { id: string } }) => {
         <p>{toDoData?.description}</p>
         <p>Created: {daysFromToday(toDoData?.createdAt)}</p>
         <p>Updated: {daysFromToday(toDoData?.updatedAt)}</p>
-        <Link href={`/create/${toDoData?._id}`} className="btn w-min">
+        <Link href={`/${toDoData?._id}/edit`} className="btn w-min">
           Edit
         </Link>
         <div>

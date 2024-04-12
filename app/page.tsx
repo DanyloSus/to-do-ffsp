@@ -18,7 +18,9 @@ const Home = () => {
     <div>
       <h2 className="font-bold text-3xl">To Do List</h2>
       <div>
-        <Link href="/create">Create</Link>
+        <Link href="/create" className="btn">
+          Create
+        </Link>
       </div>
       {toDos?.length ? (
         toDos.map((toDo) => (

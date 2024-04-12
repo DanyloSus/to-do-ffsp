@@ -26,7 +26,6 @@ export async function PUT(
   const { id } = params;
   const data = await req.json();
 
-  console.log(data);
   try {
     await connectMongoDB();
 
