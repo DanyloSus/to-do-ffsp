@@ -17,6 +17,8 @@ const ToDo = ({ params }: { params: { id: string } }) => {
     getValues();
   }, []);
 
+  const router = useRouter();
+
   const getValues = () => {
     axios.get(`/api/${params.id}`).then((res) => setToDoData(res.data.toDo));
   };
@@ -39,6 +41,10 @@ const ToDo = ({ params }: { params: { id: string } }) => {
       .then(getValues);
   };
 
+  const handleDelete = () => {
+    axios.delete(`/api/${params.id}`).then(() => router.push("/"));
+  };
+
   return (
     <div>
       <h2 className="font-bold text-3xl">{toDoData?.title}</h2>
@@ -54,7 +60,7 @@ const ToDo = ({ params }: { params: { id: string } }) => {
           <button onClick={handleToogle}>Toogle</button>
         </div>
         <div>
-          <button>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
     </div>

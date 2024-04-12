@@ -42,3 +42,19 @@ export async function PUT(
     return NextResponse.json(error, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+  try {
+    await connectMongoDB();
+
+    await ToDo.findOneAndDelete({ _id: id });
+
+    return NextResponse.json({ message: "ToDo deleted!" });
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 });
+  }
+}
