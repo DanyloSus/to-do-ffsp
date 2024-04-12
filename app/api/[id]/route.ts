@@ -18,3 +18,27 @@ export async function GET(
     return NextResponse.json(error, { status: 500 });
   }
 }
+
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+  const data = await req.json();
+
+  console.log(data);
+  try {
+    await connectMongoDB();
+
+    await ToDo.findOneAndUpdate(
+      { _id: id },
+      {
+        completed: !data.completed,
+      }
+    );
+
+    return NextResponse.json({ message: "ToDo toogled!" });
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 });
+  }
+}

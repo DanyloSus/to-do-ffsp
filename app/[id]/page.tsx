@@ -6,6 +6,7 @@ import TimeAgo from "javascript-time-ago";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import en from "javascript-time-ago/locale/en";
+import { useRouter } from "next/navigation";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -13,8 +14,12 @@ const ToDo = ({ params }: { params: { id: string } }) => {
   const [toDoData, setToDoData] = useState<ToDoType>();
 
   useEffect(() => {
-    axios.get(`/api/${params.id}`).then((res) => setToDoData(res.data.toDo));
+    getValues();
   }, []);
+
+  const getValues = () => {
+    axios.get(`/api/${params.id}`).then((res) => setToDoData(res.data.toDo));
+  };
 
   const daysFromToday = (date: Date | undefined) => {
     if (date) {
@@ -26,6 +31,12 @@ const ToDo = ({ params }: { params: { id: string } }) => {
 
       return formattedDate;
     }
+  };
+
+  const handleToogle = () => {
+    axios
+      .put(`/api/${params.id}`, { completed: toDoData!.completed })
+      .then(getValues);
   };
 
   return (
@@ -40,7 +51,7 @@ const ToDo = ({ params }: { params: { id: string } }) => {
           Edit
         </Link>
         <div>
-          <button>Toogle</button>
+          <button onClick={handleToogle}>Toogle</button>
         </div>
         <div>
           <button>Delete</button>
