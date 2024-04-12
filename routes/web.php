@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Requests\ToDoRequest;
+use App\Http\Controllers\ToDoController;
 use App\Models\ToDo;
 use Illuminate\Support\Facades\Route;
 
@@ -23,46 +23,16 @@ Route::get('/', function () {
     ]);
 })->name('main');
 
-Route::get('/create', function () {
-    return view('create');
-})->name('create');
+Route::get('/create', [ToDoController::class, 'showCreate'])->name('create');
 
-Route::post('/create', function (ToDoRequest $req) {
-    $toDo = ToDo::create($req->validated());
+Route::post('/create', [ToDoController::class, 'create'])->name('create.post');
 
-    return redirect()->route('info', [
-        'toDo' => $toDo,
-    ])->with('success', 'To Do created!');
-})->name('create.post');
+Route::get('/{toDo}', [ToDoController::class, 'show'])->name('info');
 
-Route::get('/{toDo}', function (ToDo $toDo) {
-    return view('info', [
-        'toDo' => $toDo
-    ]);
-})->name('info');
+Route::put('/{toDo}', [ToDoController::class, 'toogle'])->name('info.toogle');
 
-Route::put('/{toDo}', function (ToDo $toDo) {
-    $toDo->toogle();
-    
-    return redirect()->back()->with('success', 'Task toogled!');
-})->name('info.toogle');
+Route::delete('/{toDo}', [ToDoController::class, 'destroy'])->name('info.destroy');
 
-Route::delete('/{toDo}', function (ToDo $toDo) {
-    $toDo->delete();
+Route::get('/{toDo}/edit', [ToDoController::class, 'showEdit'])->name('update');
 
-    return redirect()->route('main')->with('success', 'To Do deleted');
-})->name('info.destroy');
-
-Route::get('/{toDo}/edit', function(ToDo $toDo) {
-    return view('update', [
-        'toDo' => $toDo
-    ]);
-})->name('update');
-
-Route::put('/{toDo}/edit', function(ToDo $toDo, ToDoRequest $req) {
-    $toDo->update($req->validated());
-
-    return redirect()->route('info', [
-        'toDo' => $toDo
-    ])->with('success', 'To Do updated!');
-})->name('update.put');
+Route::put('/{toDo}/edit', [ToDoController::class, 'update'])->name('update.put');
